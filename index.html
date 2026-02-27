@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXL MODS - Encrypter</title>
+    <title>ZORO ENCRYPTER - Base64 Tool</title>
     <style>
         body {
             background-color: #0d0d1a;
@@ -22,7 +22,7 @@
             border-radius: 15px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
             border: 1px solid #30363d;
             text-align: center;
         }
@@ -31,6 +31,7 @@
             color: #00f2ff;
             margin-bottom: 5px;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .subtitle {
@@ -41,15 +42,16 @@
 
         textarea {
             width: 100%;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid #00f2ff;
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             color: white;
             box-sizing: border-box;
             resize: none;
             outline: none;
             margin-bottom: 20px;
+            font-size: 14px;
         }
 
         .btn-group {
@@ -63,28 +65,34 @@
             flex: 1;
             padding: 12px;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        button:active {
+            transform: scale(0.95);
         }
 
         #encrypt-btn {
-            background: linear-gradient(to right, #00f2ff, #00c2cb);
+            background: linear-gradient(45deg, #00f2ff, #00c2cb);
             color: black;
         }
 
         #copy-btn {
-            background: linear-gradient(to right, #ff00ff, #d400d4);
+            background: linear-gradient(45deg, #ff00ff, #d400d4);
             color: white;
         }
 
         .output-label {
             text-align: left;
-            font-size: 12px;
-            color: #8b949e;
-            margin-bottom: 10px;
+            font-size: 11px;
+            color: #00f2ff;
+            margin-bottom: 8px;
             display: block;
+            font-weight: bold;
         }
 
         #output {
@@ -92,30 +100,53 @@
             padding: 15px;
             border-radius: 10px;
             word-break: break-all;
-            min-height: 50px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            min-height: 40px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            background: rgba(0, 242, 255, 0.05);
+            color: #e6edf3;
         }
 
         .telegram-btn {
             background: transparent;
             border: 1px solid #00f2ff;
             color: #00f2ff;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 25px;
+            border-radius: 25px;
             text-decoration: none;
             display: inline-block;
             font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .telegram-btn:hover {
+            background: #00f2ff;
+            color: black;
+        }
+
+        .dm-link {
+            display: block;
+            color: #8b949e;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .dm-link span {
+            color: #ff00ff;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>AXL MODS</h1>
-    <p class="subtitle">Base64 Encrypt Tool — hide your links & strings</p>
+    <h1>ZORO ENCRYPTER</h1>
+    <p class="subtitle">Base64 Encrypt Tool — Secure your links & strings</p>
 
-    <textarea id="input-text" rows="5" placeholder="https://t.me/AXL_MODSX"></textarea>
+    <textarea id="input-text" rows="4" placeholder="Enter link or text here..."></textarea>
 
     <div class="btn-group">
         <button id="encrypt-btn" onclick="encrypt()">Encrypt 🔐</button>
@@ -123,29 +154,39 @@
     </div>
 
     <span class="output-label">ENCRYPTED OUTPUT</span>
-    <div id="output">...</div>
+    <div id="output">Paste text and click Encrypt...</div>
 
-    <br>
-    <a href="https://t.me/YourChannel" class="telegram-btn">Click To Join Telegram</a>
+    <a href="https://t.me/+MSGX1l0MBPIzZWI1" target="_blank" class="telegram-btn">Join Telegram Channel</a>
+    
+    <a href="https://t.me/ZORO0687" target="_blank" class="dm-link">
+        Contact Developer: <span>@ZORO0687</span>
+    </a>
 </div>
 
 <script>
     function encrypt() {
         const input = document.getElementById('input-text').value;
-        if (input) {
-            // Base64 Encoding
-            const encoded = btoa(input);
-            document.getElementById('output').innerText = encoded;
+        if (input.trim() !== "") {
+            try {
+                // Base64 Encoding
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                document.getElementById('output').innerText = encoded;
+            } catch (e) {
+                alert("Encoding mein error aaya!");
+            }
         } else {
-            alert("Kuch text enter karein!");
+            alert("Bhai, pehle kuch text toh dalo!");
         }
     }
 
     function copyText() {
         const output = document.getElementById('output').innerText;
-        if (output !== "...") {
-            navigator.clipboard.writeText(output);
-            alert("Text Copy Ho Gaya!");
+        if (output !== "Paste text and click Encrypt..." && output !== "") {
+            navigator.clipboard.writeText(output).then(() => {
+                alert("Encrypted text copy ho gaya!");
+            });
+        } else {
+            alert("Copy karne ke liye kuch nahi hai!");
         }
     }
 </script>
