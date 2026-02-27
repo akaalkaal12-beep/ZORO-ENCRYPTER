@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXL MODS - Encrypter</title>
+    <style>
+        body {
+            background-color: #0d0d1a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #161b22;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid #30363d;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00f2ff;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #00f2ff;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            box-sizing: border-box;
+            resize: none;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        #encrypt-btn {
+            background: linear-gradient(to right, #00f2ff, #00c2cb);
+            color: black;
+        }
+
+        #copy-btn {
+            background: linear-gradient(to right, #ff00ff, #d400d4);
+            color: white;
+        }
+
+        .output-label {
+            text-align: left;
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        #output {
+            border: 1px dashed #00f2ff;
+            padding: 15px;
+            border-radius: 10px;
+            word-break: break-all;
+            min-height: 50px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .telegram-btn {
+            background: transparent;
+            border: 1px solid #00f2ff;
+            color: #00f2ff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AXL MODS</h1>
+    <p class="subtitle">Base64 Encrypt Tool — hide your links & strings</p>
+
+    <textarea id="input-text" rows="5" placeholder="https://t.me/AXL_MODSX"></textarea>
+
+    <div class="btn-group">
+        <button id="encrypt-btn" onclick="encrypt()">Encrypt 🔐</button>
+        <button id="copy-btn" onclick="copyText()">Copy 📋</button>
+    </div>
+
+    <span class="output-label">ENCRYPTED OUTPUT</span>
+    <div id="output">...</div>
+
+    <br>
+    <a href="https://t.me/YourChannel" class="telegram-btn">Click To Join Telegram</a>
+</div>
+
+<script>
+    function encrypt() {
+        const input = document.getElementById('input-text').value;
+        if (input) {
+            // Base64 Encoding
+            const encoded = btoa(input);
+            document.getElementById('output').innerText = encoded;
+        } else {
+            alert("Kuch text enter karein!");
+        }
+    }
+
+    function copyText() {
+        const output = document.getElementById('output').innerText;
+        if (output !== "...") {
+            navigator.clipboard.writeText(output);
+            alert("Text Copy Ho Gaya!");
+        }
+    }
+</script>
+
+</body>
+</html>
