@@ -3,98 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZORO STEALTH ENCRYPTER</title>
+    <title>ZORO STEALTH V2</title>
     <style>
-        body { background-color: #0d0d1a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background-color: #161b22; padding: 25px; border-radius: 15px; width: 90%; max-width: 420px; box-shadow: 0 0 25px rgba(0, 242, 255, 0.2); border: 1px solid #30363d; text-align: center; }
-        h1 { color: #00f2ff; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .subtitle { font-size: 11px; color: #8b949e; margin-bottom: 20px; }
-        textarea { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid #00f2ff; border-radius: 10px; padding: 12px; color: white; box-sizing: border-box; outline: none; margin-bottom: 15px; font-size: 14px; }
-        
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        button { padding: 12px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 12px; }
-        
-        #enc-btn { background: linear-gradient(45deg, #00f2ff, #00c2cb); color: black; }
-        #dec-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); color: black; }
-        #copy-btn { background: linear-gradient(45deg, #ff00ff, #d400d4); color: white; grid-column: span 2; }
-        
-        .status-box { text-align: left; font-size: 11px; color: #00f2ff; margin-bottom: 5px; font-weight: bold; }
-        #output-preview { border: 1px dashed #555; padding: 15px; border-radius: 10px; word-break: break-all; min-height: 40px; margin-bottom: 20px; font-size: 14px; background: rgba(255, 255, 255, 0.03); color: #00ff88; }
-        
-        .footer-links { margin-top: 10px; }
-        .link { color: #8b949e; text-decoration: none; font-size: 12px; display: block; margin-top: 8px; }
-        .link span { color: #ff00ff; }
+        /* Naya Background Colour aur Design */
+        body {
+            background: radial-gradient(circle at top right, #1a1a2e, #0f0f1a, #000000);
+            color: white;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00f2ff;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: #8b949e;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            color: #eee;
+            box-sizing: border-box;
+            outline: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #00f2ff;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        button:active { transform: scale(0.95); }
+
+        #enc-btn { background: linear-gradient(135deg, #00f2ff, #0066ff); color: white; }
+        #dec-btn { background: linear-gradient(135deg, #ffcc00, #ff6600); color: black; }
+        #copy-btn { 
+            background: linear-gradient(135deg, #ff00ff, #7000ff); 
+            color: white; 
+            grid-column: span 2; 
+            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .label {
+            text-align: left;
+            font-size: 12px;
+            color: #00f2ff;
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        #output-preview {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px dashed #00ff88;
+            padding: 18px;
+            border-radius: 12px;
+            word-break: break-all;
+            min-height: 45px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            color: #00ff88;
+            font-weight: 500;
+        }
+
+        /* Telegram & DM Section */
+        .social-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .tg-link {
+            display: block;
+            background: #24A1DE;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .tg-link:hover { background: #1e87bb; }
+
+        .dm-link {
+            color: #ff00ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .dm-link:hover { text-decoration: underline; }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>ZORO STEALTH</h1>
-    <p class="subtitle">Visual Hide Mode — Works on everything</p>
+    <p class="subtitle">Secure Encryption • Stealth Output</p>
 
-    <textarea id="input-text" rows="4" placeholder="Type anything to Encrypt or paste Code to Decrypt..."></textarea>
+    <textarea id="input-text" rows="4" placeholder="Kuch bhi likho ya code paste karo..."></textarea>
 
     <div class="btn-grid">
-        <button id="enc-btn" onclick="handleAction('encrypt')">Encrypt 🔐</button>
-        <button id="dec-btn" onclick="handleAction('decrypt')">Decrypt 🔓</button>
-        <button id="copy-btn" onclick="copyResult()">Copy Result 📋</button>
+        <button id="enc-btn" onclick="handleLogic('encrypt')">Encrypt 🔐</button>
+        <button id="dec-btn" onclick="handleLogic('decrypt')">Decrypt 🔓</button>
+        <button id="copy-btn" onclick="copyAction()">Copy Result 📋</button>
     </div>
 
-    <div class="status-box" id="status-label">PREVIEW:</div>
-    <div id="output-preview">Nothing processed yet...</div>
+    <div class="label" id="status-text">RESULT PREVIEW:</div>
+    <div id="output-preview">Aapka result yahan dikhega...</div>
 
-    <div class="footer-links">
-        <a href="https://t.me/ZORO0687" target="_blank" class="link">Dev: <span>@ZORO0687</span></a>
+    <div class="social-footer">
+        <a href="https://t.me/+MSGX1l0MBPIzZWI1" target="_blank" class="tg-link">
+            Join Telegram Channel 🚀
+        </a>
+        <a href="https://t.me/ZORO0687" target="_blank" class="dm-link">
+            Contact Developer: @ZORO0687
+        </a>
     </div>
 </div>
 
 <script>
-    let hiddenResult = ""; // Clipboard mein kya jayega woh yahan save hoga
+    let clipboardData = ""; // Isme chupa hua data rahega
 
-    function handleAction(type) {
+    function handleLogic(mode) {
         const input = document.getElementById('input-text').value.trim();
         const preview = document.getElementById('output-preview');
-        const status = document.getElementById('status-label');
+        const status = document.getElementById('status-text');
 
         if (!input) {
-            alert("Bhai, pehle kuch likho toh sahi!");
+            alert("Pehle input box mein kuch likho!");
             return;
         }
 
         try {
-            if (type === 'encrypt') {
-                // 1. Encrypt logic (Base64)
-                hiddenResult = btoa(unescape(encodeURIComponent(input)));
-                // 2. Show original text on screen
-                preview.innerText = input;
-                status.innerText = "PREVIEW (Original Text - Ready to Copy Code):";
+            if (mode === 'encrypt') {
+                // Logic: Screen par Plain Text dikhega, Copy Code hoga
+                clipboardData = btoa(unescape(encodeURIComponent(input)));
+                preview.innerText = input; 
                 preview.style.color = "#00ff88"; // Green for Encrypt
-                alert("Encryption Done! Screen par text rahega par Copy code hoga.");
+                status.innerText = "PREVIEW (Original Text - Ready to Copy Code):";
+                alert("Encrypted! Ab Copy button dabao code mil jayega.");
             } 
-            else if (type === 'decrypt') {
-                // 1. Decrypt logic
-                hiddenResult = decodeURIComponent(escape(atob(input)));
-                // 2. Show the code on screen
-                preview.innerText = input;
-                status.innerText = "PREVIEW (Code - Ready to Copy Plain Text):";
+            else if (mode === 'decrypt') {
+                // Logic: Screen par Decrypted (Plain) text dikhega, aur Copy bhi Plain hoga
+                const decoded = decodeURIComponent(escape(atob(input)));
+                clipboardData = decoded;
+                preview.innerText = decoded; // Screen par code nahi, ab asli message dikhega
                 preview.style.color = "#ffcc00"; // Yellow for Decrypt
-                alert("Decryption Done! Screen par code rahega par Copy original text hoga.");
+                status.innerText = "PREVIEW (Decrypted Text):";
+                alert("Decrypted! Code ki jagah asli message show ho gaya.");
             }
         } catch (e) {
-            alert("Error: Shayad aapne galat code paste kiya hai!");
+            alert("Error: Shayad aapne galat code dala hai!");
         }
     }
 
-    function copyResult() {
-        if (hiddenResult === "") {
-            alert("Copy karne ke liye pehle Encrypt ya Decrypt dabayein!");
+    function copyAction() {
+        if (!clipboardData) {
+            alert("Pehle Encrypt ya Decrypt par click karein!");
             return;
         }
 
-        navigator.clipboard.writeText(hiddenResult).then(() => {
-            alert("Copied to clipboard!");
-        }).catch(err => {
-            alert("Copy fail ho gaya!");
+        navigator.clipboard.writeText(clipboardData).then(() => {
+            alert("Clipboard mein copy ho gaya!");
         });
     }
 </script>
